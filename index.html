@@ -1,0 +1,694 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mohiuddin | Computer Science Portfolio</title>
+  <meta name="description" content="Personal portfolio website for Mohiuddin, a Computer Science student at Pacific States University.">
+
+  <style>
+    :root {
+      --bg: #f5f7fa;
+      --card: #ffffff;
+      --text: #142235;
+      --muted: #64748b;
+      --line: #dce3ea;
+      --accent: #116b78;
+      --navy: #102a43;
+      --gold: #c99842;
+      --shadow: 0 15px 40px rgba(20, 42, 65, .08);
+    }
+
+    [data-theme="dark"] {
+      --bg: #0d1724;
+      --card: #142437;
+      --text: #eef5fb;
+      --muted: #aab8c8;
+      --line: #2c3c50;
+      --accent: #61c7ce;
+      --navy: #081827;
+      --gold: #e0b568;
+      --shadow: 0 15px 40px rgba(0,0,0,.25);
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: Arial, Helvetica, sans-serif;
+      line-height: 1.6;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    a:hover { text-decoration: underline; }
+
+    .container {
+      width: min(1100px, calc(100% - 32px));
+      margin: auto;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: color-mix(in srgb, var(--bg) 92%, transparent);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--line);
+    }
+
+    nav {
+      min-height: 70px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .brand {
+      color: var(--text);
+      font-weight: bold;
+      font-size: 1.1rem;
+    }
+
+    .brand small {
+      display: block;
+      color: var(--muted);
+      font-size: .7rem;
+      font-weight: normal;
+    }
+
+    .links {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+
+    .links a {
+      color: var(--muted);
+      font-size: .9rem;
+      font-weight: bold;
+    }
+
+    button,
+    .button {
+      border: 0;
+      border-radius: 9px;
+      padding: 11px 16px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .theme {
+      padding: 9px 12px;
+      background: var(--card);
+      color: var(--text);
+      border: 1px solid var(--line);
+    }
+
+    .menu {
+      display: none;
+      background: var(--card);
+      color: var(--text);
+      border: 1px solid var(--line);
+      font-size: 1.2rem;
+    }
+
+    .hero {
+      padding: 90px 0;
+      background: linear-gradient(120deg, var(--navy), #1d5965);
+      color: white;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr 260px;
+      align-items: center;
+      gap: 60px;
+    }
+
+    .eyebrow,
+    .label {
+      color: var(--gold);
+      text-transform: uppercase;
+      letter-spacing: .15em;
+      font-size: .75rem;
+      font-weight: bold;
+    }
+
+    h1,
+    h2,
+    h3 {
+      line-height: 1.15;
+      letter-spacing: -.03em;
+    }
+
+    h1 {
+      margin: 15px 0;
+      font: 700 clamp(3rem, 8vw, 5.5rem) Georgia, serif;
+    }
+
+    .hero h2 {
+      color: #bce2e4;
+      font-size: 1.35rem;
+      font-weight: normal;
+    }
+
+    .hero p {
+      max-width: 620px;
+      color: #dcecef;
+      font-size: 1.05rem;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 25px;
+    }
+
+    .primary {
+      background: #d9f1eb;
+      color: #123142;
+    }
+
+    .secondary {
+      background: transparent;
+      color: white;
+      border: 1px solid rgba(255,255,255,.5);
+    }
+
+    .profile {
+      width: 240px;
+      height: 290px;
+      padding: 9px;
+      border: 1px solid rgba(255,255,255,.4);
+      border-radius: 130px 130px 20px 20px;
+      background: rgba(255,255,255,.1);
+    }
+
+    .profile img,
+    .fallback {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 120px 120px 14px 14px;
+    }
+
+    .fallback {
+      display: grid;
+      place-items: center;
+      background: #285f70;
+      color: #d7eeee;
+      font: 5rem Georgia, serif;
+    }
+
+    section {
+      padding: 75px 0;
+    }
+
+    section:nth-child(even) {
+      background: var(--card);
+    }
+
+    .heading {
+      margin-bottom: 35px;
+    }
+
+    .heading h2 {
+      margin: 8px 0;
+      font-size: clamp(2rem, 5vw, 3.2rem);
+    }
+
+    .heading p {
+      max-width: 600px;
+      color: var(--muted);
+    }
+
+    .about {
+      display: grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap: 50px;
+    }
+
+    .lead {
+      font-size: 1.25rem;
+    }
+
+    .muted {
+      color: var(--muted);
+    }
+
+    .facts {
+      display: grid;
+      gap: 17px;
+    }
+
+    .fact {
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .fact strong {
+      display: block;
+      color: var(--muted);
+      font-size: .75rem;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .card {
+      padding: 23px;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: var(--card);
+      box-shadow: var(--shadow);
+    }
+
+    .card h3 {
+      margin: 8px 0;
+      font-size: 1.25rem;
+    }
+
+    .card p,
+    .card li {
+      color: var(--muted);
+    }
+
+    .date {
+      color: var(--accent);
+      font-size: .8rem;
+      font-weight: bold;
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 15px;
+    }
+
+    .tag {
+      padding: 5px 10px;
+      border: 1px solid var(--line);
+      border-radius: 30px;
+      background: var(--bg);
+      color: var(--text);
+      font-size: .78rem;
+      font-weight: bold;
+    }
+
+    .timeline {
+      display: grid;
+      gap: 18px;
+      max-width: 850px;
+    }
+
+    .timeline .card {
+      border-left: 4px solid var(--accent);
+    }
+
+    .contact {
+      padding: 50px;
+      border-radius: 22px;
+      background: var(--navy);
+      color: white;
+    }
+
+    .contact p {
+      max-width: 600px;
+      color: #cddfe4;
+    }
+
+    footer {
+      padding: 25px 0;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: .85rem;
+    }
+
+    @media (max-width: 800px) {
+      .links {
+        position: absolute;
+        top: 70px;
+        left: 16px;
+        right: 16px;
+        display: none;
+        flex-direction: column;
+        align-items: stretch;
+        padding: 12px;
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        background: var(--card);
+      }
+
+      .links.open { display: flex; }
+
+      .menu { display: block; }
+
+      .hero-grid,
+      .about {
+        grid-template-columns: 1fr;
+      }
+
+      .profile {
+        order: -1;
+        width: 180px;
+        height: 220px;
+      }
+
+      .grid {
+        grid-template-columns: 1fr;
+      }
+
+      .contact {
+        padding: 30px 22px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="container">
+      <nav>
+        <a class="brand" href="#home">
+          Mohiuddin
+          <small>Personal Portfolio</small>
+        </a>
+
+        <button class="menu" id="menuButton">☰</button>
+
+        <div class="links" id="links">
+          <a href="#about">About</a>
+          <a href="#education">Education</a>
+          <a href="#skills">Skills</a>
+          <a href="#projects">Projects</a>
+          <a href="#experience">Experience</a>
+          <a href="#contact">Contact</a>
+          <button class="theme" id="themeButton">☾</button>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="home">
+      <div class="container hero-grid">
+        <div>
+          <div class="eyebrow">Personal Website · Pacific States University</div>
+          <h1>Hello, I'm Mohiuddin.</h1>
+          <h2>Computer Science Student · Technology Enthusiast · Future Professional</h2>
+          <p>
+            I am a Computer Science student building my knowledge in technology,
+            problem-solving, programming, and professional development.
+          </p>
+
+          <div class="actions">
+            <a class="button primary" href="#projects">View My Work</a>
+            <a class="button secondary" href="assets/resume.pdf" download>Download Resume</a>
+          </div>
+
+          <p>📍 [CITY, STATE] · ✉ student@example.com</p>
+        </div>
+
+        <div class="profile">
+          <img src="assets/profile.jpg" alt="Portrait of Mohiuddin"
+               onerror="this.style.display='none'; document.getElementById('fallback').style.display='grid';">
+          <div class="fallback" id="fallback" style="display:none;">M</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="about">
+      <div class="container">
+        <div class="heading">
+          <div class="label">01 · About Me</div>
+          <h2>A little about me.</h2>
+        </div>
+
+        <div class="about">
+          <div>
+            <p class="lead">
+              I am a Computer Science student at Pacific States University with
+              an interest in technology and professional growth.
+            </p>
+            <p class="muted">
+              I enjoy learning how software, data, and digital systems can solve
+              practical problems. I am developing my technical and communication
+              skills through coursework, projects, and collaboration.
+            </p>
+            <p class="muted">
+              Replace this paragraph with your personal biography and career goals.
+            </p>
+          </div>
+
+          <div class="facts">
+            <div class="fact">
+              <strong>Currently studying</strong>
+              Computer Science
+            </div>
+            <div class="fact">
+              <strong>University</strong>
+              Pacific States University
+            </div>
+            <div class="fact">
+              <strong>Interested in</strong>
+              Software, technology, and innovation
+            </div>
+            <div class="fact">
+              <strong>Open to</strong>
+              Internships · Research · Collaboration
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="education">
+      <div class="container">
+        <div class="heading">
+          <div class="label">02 · Education</div>
+          <h2>Academic background.</h2>
+        </div>
+
+        <div class="grid">
+          <article class="card">
+            <div class="date">2025 — 2027 · Expected</div>
+            <h3>Pacific States University</h3>
+            <p><strong>Master of Science in Computer Science</strong></p>
+            <p>Relevant coursework and academic achievements can be added here.</p>
+          </article>
+
+          <article class="card">
+            <div class="date">Previous Education</div>
+            <h3>[Previous Institution]</h3>
+            <p><strong>[Degree or Certificate]</strong></p>
+            <p>Add previous education, honors, or achievements here.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="skills">
+      <div class="container">
+        <div class="heading">
+          <div class="label">03 · Skills</div>
+          <h2>Tools for the work.</h2>
+        </div>
+
+        <div class="grid">
+          <article class="card">
+            <h3>Technical Skills</h3>
+            <div class="tags">
+              <span class="tag">Programming</span>
+              <span class="tag">Web Development</span>
+              <span class="tag">Databases</span>
+              <span class="tag">Cloud</span>
+            </div>
+          </article>
+
+          <article class="card">
+            <h3>Data & Systems</h3>
+            <div class="tags">
+              <span class="tag">Data Analytics</span>
+              <span class="tag">Networking</span>
+              <span class="tag">Cybersecurity</span>
+              <span class="tag">AI / ML</span>
+            </div>
+          </article>
+
+          <article class="card">
+            <h3>Professional Skills</h3>
+            <div class="tags">
+              <span class="tag">Communication</span>
+              <span class="tag">Leadership</span>
+              <span class="tag">Teamwork</span>
+              <span class="tag">Problem Solving</span>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="projects">
+      <div class="container">
+        <div class="heading">
+          <div class="label">04 · Projects</div>
+          <h2>Selected work.</h2>
+        </div>
+
+        <div class="grid">
+          <article class="card">
+            <div class="date">Project 01 · [DATE]</div>
+            <h3>[Project Title]</h3>
+            <p>[Describe what you built, the problem it solved, and your role.]</p>
+            <div class="tags">
+              <span class="tag">[Technology]</span>
+              <span class="tag">[Technology]</span>
+            </div>
+            <p><a href="https://github.com/" target="_blank">GitHub ↗</a></p>
+          </article>
+
+          <article class="card">
+            <div class="date">Project 02 · [DATE]</div>
+            <h3>[Project Title]</h3>
+            <p>[Describe your project, responsibilities, and results.]</p>
+            <div class="tags">
+              <span class="tag">[Technology]</span>
+              <span class="tag">[Technology]</span>
+            </div>
+            <p><a href="https://github.com/" target="_blank">GitHub ↗</a></p>
+          </article>
+
+          <article class="card">
+            <div class="date">Project 03 · [DATE]</div>
+            <h3>[Project Title]</h3>
+            <p>[Describe another academic or personal project.]</p>
+            <div class="tags">
+              <span class="tag">[Technology]</span>
+              <span class="tag">[Technology]</span>
+            </div>
+            <p><a href="https://github.com/" target="_blank">GitHub ↗</a></p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="experience">
+      <div class="container">
+        <div class="heading">
+          <div class="label">05 · Experience</div>
+          <h2>Where I have contributed.</h2>
+        </div>
+
+        <div class="timeline">
+          <article class="card">
+            <div class="date">[DATES] · [LOCATION]</div>
+            <h3>[Job Title] · [Company]</h3>
+            <p>[Describe your responsibilities and achievements.]</p>
+            <ul>
+              <li>[Achievement or responsibility]</li>
+              <li>[Skill developed or result achieved]</li>
+            </ul>
+          </article>
+
+          <article class="card">
+            <div class="date">[DATES] · [LOCATION]</div>
+            <h3>[Leadership or Volunteer Role]</h3>
+            <p>[Describe your leadership, campus, or community involvement.]</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="research">
+      <div class="container">
+        <div class="heading">
+          <div class="label">06 · Research</div>
+          <h2>Questions worth exploring.</h2>
+        </div>
+
+        <div class="grid">
+          <article class="card">
+            <h3>Research Interests</h3>
+            <p>[Add your research interests and areas you want to explore.]</p>
+          </article>
+
+          <article class="card">
+            <h3>Research Project</h3>
+            <p>[Add research assistant experience, projects, or conferences.]</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="container">
+        <div class="contact">
+          <div class="label">07 · Contact</div>
+          <h2>Interested in connecting?</h2>
+          <p>
+            Feel free to reach out regarding internships, employment, research,
+            projects, or collaboration.
+          </p>
+
+          <div class="actions">
+            <a class="button primary" href="mailto:student@example.com">Email Me</a>
+            <a class="button secondary" href="https://www.linkedin.com/" target="_blank">LinkedIn</a>
+            <a class="button secondary" href="https://github.com/" target="_blank">GitHub</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      © <span id="year"></span> Mohiuddin · Personal Website · Pacific States University
+    </div>
+  </footer>
+
+  <script>
+    const menuButton = document.getElementById("menuButton");
+    const links = document.getElementById("links");
+    const themeButton = document.getElementById("themeButton");
+
+    menuButton.addEventListener("click", () => {
+      links.classList.toggle("open");
+    });
+
+    themeButton.addEventListener("click", () => {
+      const dark = document.documentElement.dataset.theme === "dark";
+      document.documentElement.dataset.theme = dark ? "light" : "dark";
+      themeButton.textContent = dark ? "☾" : "☀";
+      localStorage.setItem("theme", dark ? "light" : "dark");
+    });
+
+    const savedTheme = localStorage.getItem("theme");
+    if (savedTheme === "dark") {
+      document.documentElement.dataset.theme = "dark";
+      themeButton.textContent = "☀";
+    }
+
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    document.querySelectorAll(".links a").forEach(link => {
+      link.addEventListener("click", () => links.classList.remove("open"));
+    });
+  </script>
+</body>
+</html>
